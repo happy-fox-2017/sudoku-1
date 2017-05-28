@@ -82,19 +82,6 @@ class Sudoku {
     }
   }
 
-  // >> loop based on sudokuZeros.length
-  // 1. make a guess array. >> array from [1,...,9]
-  // 2. get the index of zero >> get the x and y coodinate
-  // 3. check the index of vertikalArr, horizontalArr, and boxArr of checked zero koordinate
-  //    compare it with guess array >> -1 or not
-  // 4. if true, it means the guessArrays value not founded yet, >> go to step 6
-  // 5. if false, guessArray value is already there, continue
-  // 6. update the value of sudokuArray from zeroArray's coodinated with guessArray.
-  // 7. back to first step, until the loop complete
-  // 8. display the solved board.
-
-  // return to update this.sudokuArray
-
   sleep(milliseconds) {
     var start = new Date().getTime();
     for (var i = 0; i < 1e7; i++) {
@@ -114,17 +101,23 @@ class Sudoku {
       let rowArr = this.horizontalArr(xZero);
       let columnArr = this.verticalArr(yZero);
       let boxArr = this.boxArr(xZero, yZero);
+
+      this.reset_board()
+      console.log(this.sudokuArray);
+      this.sleep(100)
+
       for (let j = 0; j < this.sudokuGuess.length; j++) {
         if (!rowArr.includes(this.sudokuGuess[j]) && !columnArr.includes(this.sudokuGuess[j]) && !boxArr.includes(this.sudokuGuess[j])) {
           this.sudokuArray[xZero][yZero] = this.sudokuGuess[j];
-          this.reset_board()
-          console.log(this.sudokuArray);
-          this.sleep(500)
           break;
-        } else {
-          // this.sudokuArray[xZero][yZero] = (Math.floor(Math.random() * 9) + 1).toString()
-          // console.log('--');
-          continue;
+        }
+      }
+      if (this.sudokuArray[xZero][yZero] == 0) {
+        for (let j = 0; j < this.sudokuGuess.length; j++) {
+          if (!boxArr.includes(this.sudokuGuess[j])) {
+            this.sudokuArray[xZero][yZero] = this.sudokuGuess[j];
+            break;
+          }
         }
       }
     }
