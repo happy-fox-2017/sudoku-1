@@ -1,12 +1,27 @@
 "use strict"
 
 class Sudoku {
-  constructor(board_string) {}
+  constructor(board_string) {
+    this.board_string = board_string;
+  }
 
-  solve() {}
+  solve() {
+  }
 
   // Returns a string representing the current state of the board
-  board() {}
+  board() {
+    let regx = /\d{9}/g;
+    let arr = this.board_string.match(regx);
+    let boardArr = [];
+    for (let i = 0; i < arr.length; i++) {
+      let row =[]
+      for (let j=0; j < arr[i].length; j++){
+        row.push(+arr[i][j]);
+      }
+      boardArr.push(row);
+    }
+    return boardArr;
+  }
 }
 
 // The file has newlines at the end of each line,
